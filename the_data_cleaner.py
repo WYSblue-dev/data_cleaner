@@ -86,8 +86,14 @@ def normalize_phones(records):
 
     TODO: implement using a regular for-loop (a list comprehension is fine too)
     """
+    normalized = []
     # TODO: implement normalize_phones
-    return [re.search(r"Phone:\s+([^|]+)", record).group() for record in records]
+    for r in records:
+        phone_field = re.search(r"Phone:\s+([^|]+)", r).group()
+        digits = re.sub(r"\D", "", phone_field)
+        formatted = f"{digits[:3]}-{digits[3:6]}-{digits[6:]}"
+        normalized.append(formatted)
+    return normalized
 
 
 # ============================================================
